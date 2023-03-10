@@ -1,0 +1,43 @@
+Jenkins: 34.203.77.205:8081
+https://cucumber.io/docs/cucumber/api/?lang=java
+Chrome expression generator: https://crontab.guru/
+
+New item:  1) Choose Freestyle project
+
+2) Source Code Management
+choose GitHub project, add link
+
+3) check Branches to build
+*/master
+
+4) if needed Build Triggers --> Build periodically
+Also can choose: Build after other projects are built
+(if you want to trigger regression after smoke
+"Trigger only if build is stable")
+To optimize Jenkins performance change 0 5 * * * to H 5 * * *
+Time zone specification:
+TZ=US/Eastern
+
+Add more than one schedule? yes
+
+5) Specify test:
+click Build => Invoke top-level Maven targets
+=> M3 => Goals: test -Dcucumber.filter.tags=@smoke
+
+6) Add report:
+click Post Build Action => choose Cucumber Report
+
+7) Apply --> Save
+click Build Now
+
+New item:  1) Pipeline
+
+Script - no need to write ourself, used Groovy Lang, sometimes meed to update parts
+
+Difference between Freestyle and Pipeline
+Freestyle: for simple jobs, can add triggers to run jobs
+Pipeline: for more complex jobs
+
+Pipeline --> Deffinition --> from Source Code Management (SCM)
+--> copy Git link
+Script Path --> jenkinsfile
